@@ -1,0 +1,59 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+          
+      - name: Set up environment variables
+        run: |
+          echo "INSTANCE_URL=https://testmanagement.qmetry.com/" >> $GITHUB_ENV
+          echo "API_KEY=k3MvxIwV703wjsV6HkweZ3rGdwf9GDoeWtPc3PRp" >> $GITHUB_ENV
+          echo "PROJECT=QAS-QTM Integration" >> $GITHUB_ENV
+          echo "FILE_NAME=/Users/mihir.lakhtaria/Desktop/Files/Working_Sample/Cucumber_Normal.json" >> $GITHUB_ENV
+          echo "TESTING_TYPE=CUCUMBER" >> $GITHUB_ENV
+          echo "PROJECT_ID=9736" >> $GITHUB_ENV
+          echo "SKIP_WARNING=1" >> $GITHUB_ENV
+
+      - name: Send API request to create and schedule test results
+        run: |
+          FINAL_RESPONSE=$(curl --location \
+            --request POST "$INSTANCE_URL/rest/import/createandscheduletestresults/1" \
+            --header "project:$PROJECT" \
+            --header "apiKey:$API_KEY" \
+            --form "file=@$FILE_NAME" \
+            --form "entityType=$TESTING_TYPE" \
+            --form "projectID=$PROJECT_ID" \
+            --form "skipWarning=$SKIP_WARNING")
+          
+          echo "API Response = $FINAL_RESPONSE"
