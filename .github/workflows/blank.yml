@@ -35,7 +35,9 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-
+      - name: Print path Current before ENV
+        run: |
+          pwd
 
 
     
@@ -50,6 +52,9 @@ jobs:
           echo "SKIP_WARNING=1" >> $GITHUB_ENV
 
 
+      - name: Print path Current after ENV
+        run: |
+          pwd
 
 
       - name: Send a simple test request
