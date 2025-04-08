@@ -70,16 +70,17 @@ jobs:
         run: |
           ls -l "$FILE_NAME"
 
-      - name: Send API request to create and schedule test results
+      - name: Send a simple test request
         run: |
+          echo "This is a test" > testfile.txt
           FINAL_RESPONSE=$(curl --location \
-            --request POST "$INSTANCE_URL/rest/import/createandscheduletestresults/1" \
-            --header "project:$PROJECT" \
-            --header "apiKey:$API_KEY" \
-            --header "Content-Type:multipart/form-data" \
-            --form "file=@\"$FILE_NAME\"" \
-            --form "entityType=$TESTING_TYPE" \
-            --form "projectID=$PROJECT_ID" \
-            --form "skipWarning=$SKIP_WARNING")
-          
-          echo "API Response = $FINAL_RESPONSE"
+          --request POST "$INSTANCE_URL/rest/import/createandscheduletestresults/1" \
+          --header "project:$PROJECT" \
+          --header "apiKey:$API_KEY" \
+          --form "file=@testfile.txt" \
+          --form "entityType=$TESTING_TYPE" \
+          --form "projectID=$PROJECT_ID" \
+          --form "skipWarning=$SKIP_WARNING")
+          echo "Response: $FINAL_RESPONSE"
+
+
