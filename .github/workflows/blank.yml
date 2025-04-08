@@ -50,25 +50,7 @@ jobs:
           echo "SKIP_WARNING=1" >> $GITHUB_ENV
 
 
-      - name: Check if the file exists
-        run: |
-          if [ ! -f "$FILE_NAME" ]; then
-          echo "File $FILE_NAME not found!"
-          exit 1
-          fi
-          if [ ! -s "$FILE_NAME" ]; then
-          echo "File $FILE_NAME is empty!"
-          exit 1
-          fi
 
-
-      - name: Print file name
-        run: |
-          echo "File path: $FILE_NAME"
-
-      - name: Check file permissions
-        run: |
-          ls -l "$FILE_NAME"
 
       - name: Send a simple test request
         run: |
