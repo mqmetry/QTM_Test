@@ -76,7 +76,7 @@ jobs:
             --request POST "$INSTANCE_URL/rest/import/createandscheduletestresults/1" \
             --header "project:$PROJECT" \
             --header "apiKey:$API_KEY" \
-            --form "file=@$FILE_NAME" \
+            --form "file=@\"$FILE_NAME\"" \
             --form "entityType=$TESTING_TYPE" \
             --form "projectID=$PROJECT_ID" \
             --form "skipWarning=$SKIP_WARNING")
