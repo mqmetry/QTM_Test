@@ -46,22 +46,15 @@ jobs:
           echo "PROJECT_ID=9736" >> $GITHUB_ENV
           echo "SKIP_WARNING=1" >> $GITHUB_ENV
 
-      - name: Upload JSON File
-        uses: jakejarvis/http-request-action@v1
+      - name: Deploy Stage
+        uses: fjogeleit/http-request-action@v1
         with:
-          method: 'POST'
           url: '$INSTANCE_URL/rest/import/createandscheduletestresults/1'
-          headers: |
-
-            apiKey: $API_KEY
-            project: $PROJECT
-            
-          body: |
-            {
-              "file: @$FILE_NAME,
-              "entityType":$TESTING_TYPE"
-              
-            }
+          method: 'POST'
+          customHeaders: '{"project":$PROJECT, "apiKey":$API_KEY }'
+          entityType: $TESTING_TYPE
+          file: $FILE_NAME
+          
 
 
       - name: Send a simple test request
