@@ -38,7 +38,7 @@ jobs:
     
       - name: Set up environment variables
         run: |
-          echo "INSTANCE_URL=https://testmanagement.qmetry.com/" >> $GITHUB_ENV
+          echo "INSTANCE_URL=https://testmanagement.qmetry.com" >> $GITHUB_ENV
           echo "API_KEY=k3MvxIwV703wjsV6HkweZ3rGdwf9GDoeWtPc3PRp" >> $GITHUB_ENV
           echo "PROJECT=QAS-QTM Integration" >> $GITHUB_ENV
           echo "FILE_NAME=/Users/mihir.lakhtaria/Desktop/Cucumber.json" >> $GITHUB_ENV
