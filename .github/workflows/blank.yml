@@ -35,11 +35,6 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      - name: Print path Current before ENV
-        run: |
-          pwd
-
-
     
       - name: Set up environment variables
         run: |
@@ -51,10 +46,22 @@ jobs:
           echo "PROJECT_ID=9736" >> $GITHUB_ENV
           echo "SKIP_WARNING=1" >> $GITHUB_ENV
 
+      - name: Upload JSON File
+        uses: jakejarvis/http-request-action@v1
+        with:
+          method: 'POST'
+          url: '$INSTANCE_URL/rest/import/createandscheduletestresults/1'
+          headers: |
 
-      - name: Print path Current after ENV
-        run: |
-          pwd
+            apiKey: $API_KEY
+            project: $PROJECT
+            
+          body: |
+            {
+              "file: @$FILE_NAME,
+              "entityType":$TESTING_TYPE"
+              
+            }
 
 
       - name: Send a simple test request
@@ -68,5 +75,6 @@ jobs:
           --form "projectID=$PROJECT_ID" \
           --form "skipWarning=$SKIP_WARNING")
           echo "Response: $FINAL_RESPONSE"
+          
 
 
