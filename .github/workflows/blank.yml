@@ -51,9 +51,9 @@ jobs:
         with:
           url: '$INSTANCE_URL/rest/import/createandscheduletestresults/1'
           method: 'POST'
-          customHeaders: '{"project":$PROJECT, "apiKey":$API_KEY }'
-          entityType: $TESTING_TYPE
-          file: $FILE_NAME
+          customHeaders: '{"project":"$PROJECT", "apiKey":"$API_KEY" }'
+          data: '{"entityType":"$TESTING_TYPE","file": "@$FILE_NAME"}'
+          
           
 
 
