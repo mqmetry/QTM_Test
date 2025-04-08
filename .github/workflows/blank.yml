@@ -34,7 +34,11 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          
+
+
+
+
+    
       - name: Set up environment variables
         run: |
           echo "INSTANCE_URL=https://testmanagement.qmetry.com/" >> $GITHUB_ENV
@@ -44,6 +48,27 @@ jobs:
           echo "TESTING_TYPE=CUCUMBER" >> $GITHUB_ENV
           echo "PROJECT_ID=9736" >> $GITHUB_ENV
           echo "SKIP_WARNING=1" >> $GITHUB_ENV
+
+
+      - name: Check if the file exists
+        run: |
+          if [ ! -f "$FILE_NAME" ]; then
+          echo "File $FILE_NAME not found!"
+          exit 1
+          fi
+          if [ ! -s "$FILE_NAME" ]; then
+          echo "File $FILE_NAME is empty!"
+          exit 1
+          fi
+
+
+      - name: Print file name
+        run: |
+          echo "File path: $FILE_NAM\E"
+
+      - name: Check file permissions
+        run: |
+          ls -l "$FILE_NAME"
 
       - name: Send API request to create and schedule test results
         run: |
